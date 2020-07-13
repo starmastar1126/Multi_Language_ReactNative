@@ -1,7 +1,8 @@
+import React from 'react';
 import internationalization from "../config/internationalization";
 
 export default () => {
-    
+    // alert(internationalization.getCurrentLocale())
     let bookData=[];
     if(internationalization.getCurrentLocale() == 'en') {
         bookData = require('../lang/Default.json');

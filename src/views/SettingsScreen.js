@@ -1,8 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image, FlatList, TouchableOpacity, AppState} from 'react-native';
+import {StyleSheet, View, Text, Image, FlatList, TouchableOpacity} from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-// import RNRestart from 'react-native-restart';
-import {CirclesLoader, PulasLoader, TextLoader, DotsLoader} from 'react-native-indicator';
 
 // Load sample language data list
 const LanguageData = require('../lang/Languages.json');
@@ -10,47 +8,41 @@ import internationalization from "../config/internationalization";
 import { NavigationActions } from 'react-navigation';
 import { StackActions } from 'react-navigation';
 
+
 class SettingsScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false,
-            language: 'en',
+            language: LanguageData.map(item => {
+                return { ...item, checked: item.code === props.lang }
+            }),
             loading: false
         };
     }
-
     onChange(select) {
         internationalization.setLocale(select.code)
         internationalization.setI18nConfig()
-        this.setState({visible: true});
-        setTimeout(() => {
-            // this.setState({visible: false});
-            this.props.navigation.dispatch(StackActions.reset(
-                {
-                    index: 0,
-                    title: 'New Muslim Guide',
-                    actions: [NavigationActions.navigate({ routeName: 'Front' })]
+        this.setState({
+            language: this.state.language.map(item => {
+                if (item.language == select.language) {
+                    return { ...item, checked: true };
+                } else {
+                    return { ...item, checked: false };
                 }
-            ))
-        }, 1000)
-        // RNRestart.Restart();
-        // this.setState({
-        //     language: this.state.language.map(item => {
-        //         if (item.language == select.language) {
-        //             return { ...item, checked: true };
-        //         } else {
-        //             return { ...item, checked: false };
-        //         }
-        //     })
-        // });
+            })
+        });
+        this.props.navigation.dispatch(StackActions.reset(
+            {
+                index: 0,
+                title: 'New Muslim Guide',
+                actions: [NavigationActions.navigate({ routeName: 'Front' })]
+            }
+        ))
     }
 
     render() {
         return (
             <View>
-                <View style={[this.state.visible ? {display: 'flex'} : {display: 'none'}, {width: wp('100.0%'), height: hp('100.0%'), backgroundColor: '#00000098', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}]}>
-                    <CirclesLoader color="#FFFFFF"/></View>
                 <View style={{ width: wp('100.0%'), height: 50, borderBottomWidth: 1, borderColor: '#eee', paddingTop: 10}}>
                     <Text style={{textAlign: 'center', fontSize: 20}}>Select Language</Text>
                 </View>

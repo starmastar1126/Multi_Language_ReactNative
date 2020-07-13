@@ -1,9 +1,9 @@
-// import useResults from '../hooks/useResults';
-// const results = useResults();
+import useResults from '../hooks/useResults';
+const results = useResults();
 
 
 // filter result to showing terms one by one (FrontTermsScreen)
-export const filterResultsByTermId = (results, maxTid) => {
+export const filterResultsByTermId = maxTid => {
     //es6 code to filter repeated terms
     const filteredTerms = results.filter((results, index, self) =>
         self.findIndex(t =>
@@ -12,7 +12,7 @@ export const filterResultsByTermId = (results, maxTid) => {
 }
 
 // filter to show intros only (FrontTermsScreen)
-export const filterResultsToGetIntros = (results) => {
+export const filterResultsToGetIntros = () => {
     const intros = results.filter(tid => tid.termId == 13 )
     .map(r => ({title: r.title1, sourceId: r.sourceId, body: 'body1'}));
     return intros;
@@ -20,7 +20,7 @@ export const filterResultsToGetIntros = (results) => {
 
 
 // filter titles by termId for (TermTitlesScreen)
-export const filterTitlesByTermId = (results, termId) => {
+export const filterTitlesByTermId = termId => {
     const titles = results.filter(result => result.termId == termId)
     .map(r => ([
         {title: r.title1, sourceId: r.sourceId, body: 'body1'},

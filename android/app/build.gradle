@@ -179,7 +179,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-restart')
     implementation project(':react-native-localize')
     implementation project(':react-native-localization')
     implementation project(':react-native-vector-icons')

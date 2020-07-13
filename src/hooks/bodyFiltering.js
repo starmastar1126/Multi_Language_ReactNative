@@ -1,16 +1,16 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
-// import useResults from '../hooks/useResults';
+import useResults from '../hooks/useResults';
 import HTMLView from 'react-native-htmlview';
 
 import images from '../assets/book-images';
 
-// const results = useResults();
+const results = useResults();
 
 let counter = 0;
 
 // get body (ArticleScreen)
-export const getBody = (results, bodyKey, sourceId) => {
+export const getBody = (bodyKey, sourceId) => {
 
     let body = results.filter(r => r.sourceId == sourceId).map(a => a[bodyKey]).toString();
     let orderLest = false;
